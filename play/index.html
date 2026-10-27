@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<!-- Game links (AppLinks.Play in the app): https://karagiannakisnikos.github.io/quizanta/play/?c=QZ-XXXX-XXXX
+     On Android it opens the app with the code filled in (quizanta://join, see IncomingCode.cs). Without the app,
+     Chrome falls back to the Play Store, which hands the code to the app after installing (install referrer). -->
+<html lang="el">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Quizanta – Παίξε μαζί μου</title>
+<meta property="og:title" content="🎯 Σε προκαλώ στο Quizanta!">
+<meta property="og:description" content="Πάτα για να παίξεις τις ίδιες ερωτήσεις με τον φίλο σου.">
+<style>
+  :root { --bg: #ffffff; --text: #1f1f1f; --muted: #6e6e6e; --accent: #5B2EE0; --card: #f1edfd; }
+  @media (prefers-color-scheme: dark) {
+    :root { --bg: #141414; --text: #e8e8e8; --muted: #a0a0a0; --accent: #ac99ea; --card: #232028; }
+  }
+  body { margin: 0; background: var(--bg); color: var(--text); font: 16px/1.6 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+  main { max-width: 440px; margin: 0 auto; padding: 48px 16px; text-align: center; }
+  .emoji { font-size: 64px; line-height: 1; }
+  h1 { font-size: 1.6rem; margin: 16px 0 8px; }
+  p { margin: 8px 0; }
+  .muted { color: var(--muted); font-size: 0.95rem; }
+  .code { display: inline-block; margin: 16px 0; padding: 12px 20px; border-radius: 16px; background: var(--card);
+          font: 700 1.6rem/1.2 ui-monospace, "Cascadia Mono", Consolas, monospace; letter-spacing: 0.05em; }
+  .button { display: block; margin: 12px 0; padding: 14px; border: 0; border-radius: 999px; background: var(--accent);
+            color: #fff; font: 700 1.1rem/1.2 inherit; text-decoration: none; cursor: pointer; width: 100%; }
+  .secondary { background: transparent; color: var(--accent); border: 2px solid var(--accent); }
+  [hidden] { display: none; }
+</style>
+</head>
+<body>
+<main>
+  <div class="emoji">🎯</div>
+  <h1>Παίξε στο Quizanta!</h1>
+  <p>Ο φίλος σου σε περιμένει με αυτόν τον κωδικό:</p>
+  <div class="code" id="code">–</div>
+
+  <div id="android" hidden>
+    <a class="button" id="open" href="#">▶ Άνοιξε το Quizanta</a>
+    <p class="muted">Δεν έχεις την εφαρμογή; Θα σε πάμε στο Google Play· μόλις την εγκαταστήσεις και την ανοίξεις, ο κωδικός θα είναι ήδη συμπληρωμένος.</p>
+  </div>
+
+  <div id="other" hidden>
+    <p class="muted">Το Quizanta είναι για κινητά Android. Άνοιξε αυτόν τον σύνδεσμο από το κινητό σου, ή εγκατάστησε την εφαρμογή και γράψε τον κωδικό στο «🔑 Έχω κωδικό».</p>
+  </div>
+
+  <button class="button secondary" id="copy" type="button">📋 Αντιγραφή κωδικού</button>
+  <a class="button secondary" id="store" href="https://play.google.com/store/apps/details?id=com.quizanta.app">Google Play</a>
+</main>
+<script>
+  // Only the characters a code can have, so nothing else from the URL ends up in the page or the links.
+  var code = (new URLSearchParams(location.search).get('c') || '').toUpperCase().replace(/[^0-9A-Z-]/g, '').slice(0, 14);
+  var store = 'https://play.google.com/store/apps/details?id=com.quizanta.app' +
+    (code ? '&referrer=' + encodeURIComponent('code=' + code) : '');
+
+  document.getElementById('code').textContent = code || '–';
+  document.getElementById('store').href = store;
+
+  var copy = document.getElementById('copy');
+  copy.hidden = !code;
+  copy.onclick = function () {
+    navigator.clipboard.writeText(code).then(function () { copy.textContent = '✅ Αντιγράφηκε'; });
+  };
+
+  if (/Android/i.test(navigator.userAgent)) {
+    // Chrome opens the app if it can handle quizanta://join; otherwise (not installed, or an old version) the Play Store.
+    var intent = 'intent://join?c=' + encodeURIComponent(code) +
+      '#Intent;scheme=quizanta;package=com.quizanta.app;S.browser_fallback_url=' + encodeURIComponent(store) + ';end';
+    document.getElementById('android').hidden = false;
+    document.getElementById('open').href = intent;
+    if (code)
+      location.href = intent;
+  } else {
+    document.getElementById('other').hidden = false;
+  }
+</script>
+</body>
+</html>
