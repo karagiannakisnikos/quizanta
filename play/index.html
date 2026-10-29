@@ -31,9 +31,9 @@
 </head>
 <body>
 <main>
-  <div class="emoji">🎯</div>
-  <h1>Παίξε στο Quizanta!</h1>
-  <p>Ο φίλος σου σε περιμένει με αυτόν τον κωδικό:</p>
+  <div class="emoji" id="emoji">🎯</div>
+  <h1 id="heading">Παίξε στο Quizanta!</h1>
+  <p id="intro">Ο φίλος σου σε περιμένει με αυτόν τον κωδικό:</p>
   <div class="code" id="code">–</div>
 
   <div id="android" hidden>
@@ -55,10 +55,20 @@
     (code ? '&referrer=' + encodeURIComponent('code=' + code) : '');
 
   document.getElementById('code').textContent = code || '–';
+
+  // Friend codes (QF-…) add a friend instead of starting a game; the app tells them apart by the prefix.
+  if (code.indexOf('QF') === 0) {
+    document.title = 'Quizanta – Γίνε φίλος μου';
+    document.getElementById('emoji').textContent = '👥';
+    document.getElementById('heading').textContent = 'Γίνε φίλος μου στο Quizanta!';
+    document.getElementById('intro').textContent = 'Πάτα το κουμπί και γινόμαστε φίλοι: από εκεί και πέρα θα καλούμε ο ένας τον άλλον σε παιχνίδι με μια ειδοποίηση στο κινητό.';
+    // No code to show: the link does everything.
+    document.getElementById('code').hidden = true;
+  }
   document.getElementById('store').href = store;
 
   var copy = document.getElementById('copy');
-  copy.hidden = !code;
+  copy.hidden = !code || code.indexOf('QF') === 0;
   copy.onclick = function () {
     navigator.clipboard.writeText(code).then(function () { copy.textContent = '✅ Αντιγράφηκε'; });
   };
