@@ -56,21 +56,37 @@
 
   document.getElementById('code').textContent = code || '–';
 
+  // In English for browsers in any other language than Greek, like the app (AppLanguage).
+  var english = !/^el/i.test(navigator.language || '');
+  var friend = code.indexOf('QF') === 0;
+  if (english) {
+    document.documentElement.lang = 'en';
+    document.title = 'Quizanta – Play with me';
+    document.getElementById('heading').textContent = 'Play on Quizanta!';
+    document.getElementById('intro').textContent = 'Your friend is waiting for you with this code:';
+    document.getElementById('open').textContent = '▶ Open Quizanta';
+    document.querySelector('#android .muted').textContent = "Don't have the app? We'll take you to Google Play; once you install and open it, the code will already be filled in.";
+    document.querySelector('#other .muted').textContent = 'Quizanta is for Android phones. Open this link on your phone, or install the app and type the code in “🔑 I have a code”.';
+    document.getElementById('copy').textContent = '📋 Copy code';
+  }
+
   // Friend codes (QF-…) add a friend instead of starting a game; the app tells them apart by the prefix.
-  if (code.indexOf('QF') === 0) {
-    document.title = 'Quizanta – Γίνε φίλος μου';
+  if (friend) {
+    document.title = english ? 'Quizanta – Be my friend' : 'Quizanta – Γίνε φίλος μου';
     document.getElementById('emoji').textContent = '👥';
-    document.getElementById('heading').textContent = 'Γίνε φίλος μου στο Quizanta!';
-    document.getElementById('intro').textContent = 'Πάτα το κουμπί και γινόμαστε φίλοι: από εκεί και πέρα θα καλούμε ο ένας τον άλλον σε παιχνίδι με μια ειδοποίηση στο κινητό.';
+    document.getElementById('heading').textContent = english ? 'Be my friend on Quizanta!' : 'Γίνε φίλος μου στο Quizanta!';
+    document.getElementById('intro').textContent = english
+      ? "Tap the button and we're friends: from then on we can invite each other to play with a notification on the phone."
+      : 'Πάτα το κουμπί και γινόμαστε φίλοι: από εκεί και πέρα θα καλούμε ο ένας τον άλλον σε παιχνίδι με μια ειδοποίηση στο κινητό.';
     // No code to show: the link does everything.
     document.getElementById('code').hidden = true;
   }
   document.getElementById('store').href = store;
 
   var copy = document.getElementById('copy');
-  copy.hidden = !code || code.indexOf('QF') === 0;
+  copy.hidden = !code || friend;
   copy.onclick = function () {
-    navigator.clipboard.writeText(code).then(function () { copy.textContent = '✅ Αντιγράφηκε'; });
+    navigator.clipboard.writeText(code).then(function () { copy.textContent = english ? '✅ Copied' : '✅ Αντιγράφηκε'; });
   };
 
   if (/Android/i.test(navigator.userAgent)) {
