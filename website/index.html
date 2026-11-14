@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="el">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Quizanta – Κουίζ Γνώσεων</title>
+<meta name="description" content="Quizanta: κουίζ γνώσεων για Android με πάνω από 14.000 ερωτήσεις και Οπτικούς γρίφους. Παίξε μόνος, το Ημερήσιο κουίζ, ζωντανά με φίλους ή στείλε πρόκληση.">
+<style>
+  :root { --bg: #ffffff; --text: #1f1f1f; --muted: #6e6e6e; --accent: #5B2EE0; --card: #f1edfd; --new: #FFC93C; --new-text: #3A1C99; }
+  @media (prefers-color-scheme: dark) {
+    :root { --bg: #141414; --text: #e8e8e8; --muted: #a0a0a0; --accent: #ac99ea; --card: #232028; }
+  }
+  body { margin: 0; background: var(--bg); color: var(--text); font: 16px/1.6 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+  header { background: linear-gradient(135deg, #7B4DFF, #4A1FC2); color: #fff; text-align: center; padding: 48px 16px 40px; }
+  header img { width: 112px; height: 112px; border-radius: 24px; box-shadow: 0 8px 24px rgba(0,0,0,.25); }
+  header h1 { margin: 16px 0 4px; font-size: 2.4rem; }
+  header p { margin: 0; opacity: .9; }
+  .chips { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin-top: 18px; }
+  .chips span { background: rgba(255,255,255,.16); border-radius: 999px; padding: 4px 14px; font-weight: 600; font-size: .95rem; }
+  .chips span.gold { background: var(--new); color: var(--new-text); }
+  .store { display: inline-block; margin-top: 24px; background: #fff; color: #4A1FC2; font-weight: 700; text-decoration: none; padding: 12px 24px; border-radius: 999px; }
+  main { max-width: 760px; margin: 0 auto; padding: 32px 16px 48px; }
+  .modes { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; }
+  .mode { background: var(--card); border-radius: 16px; padding: 20px; }
+  .mode h2 { margin: 0 0 6px; font-size: 1.15rem; }
+  .mode p { margin: 0; color: var(--muted); }
+  .badge { display: inline-block; background: var(--new); color: var(--new-text); font-size: .75rem; font-weight: 700; border-radius: 999px; padding: 1px 8px; margin-left: 6px; vertical-align: middle; }
+  .screens { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 32px; }
+  .screens img { width: 100%; height: auto; border-radius: 16px; box-shadow: 0 4px 16px rgba(0,0,0,.15); }
+  section { margin-top: 32px; }
+  footer { border-top: 1px solid rgba(127,127,127,.25); text-align: center; color: var(--muted); padding: 24px 16px; font-size: .9rem; }
+  a { color: var(--accent); }
+</style>
+</head>
+<body>
+<header>
+  <!-- The app icon (store\icon-512.png). -->
+  <img src="icon-512.png" width="112" height="112" alt="Quizanta">
+  <h1>Quizanta</h1>
+  <p>Κουίζ γνώσεων κόντρα στον χρόνο · Trivia quiz against the clock · Trivia contra el reloj</p>
+  <div class="chips">
+    <span class="gold">14.000+ ερωτήσεις</span>
+    <span>🧩 Οπτικοί γρίφοι</span>
+    <span>🎯 Μάντεψε το νούμερο</span>
+    <span>🌐 Με φίλους</span>
+  </div>
+  <a class="store" href="https://play.google.com/store/apps/details?id=com.quizanta.app">▶ Google Play</a>
+</header>
+
+<main>
+  <div class="modes">
+    <div class="mode">
+      <h2>🧩 Οπτικοί γρίφοι <span class="badge">ΝΕΟ</span></h2>
+      <p>Σειρές σχημάτων, τρίγωνα για μέτρημα, καθρέφτες και μνήμη. Γρίφοι που δεν τελειώνουν ποτέ.</p>
+    </div>
+    <div class="mode">
+      <h2>🎯 Μάντεψε το νούμερο</h2>
+      <p>Σύρε τον δείκτη στη γραμμή: όσο πιο κοντά πέσεις, τόσο περισσότεροι πόντοι.</p>
+    </div>
+    <div class="mode">
+      <h2>👤 Μόνος</h2>
+      <p>10 ερωτήσεις κόντρα στον χρόνο και παγκόσμια κατάταξη.</p>
+    </div>
+    <div class="mode">
+      <h2>🌐 Με φίλους</h2>
+      <p>Ζωντανά, ο καθένας στο κινητό του, ή με τη σειρά στο ίδιο κινητό.</p>
+    </div>
+    <div class="mode">
+      <h2>📅 Ημερήσιο κουίζ</h2>
+      <p>Κάθε μέρα 10 ερωτήσεις, ίδιες για όλους. Κράτα το σερί σου 🔥</p>
+    </div>
+    <div class="mode">
+      <h2>🏆 Πρόκληση</h2>
+      <p>Στείλε τον σύνδεσμο σε φίλο: παίζει τις ίδιες ερωτήσεις και βλέπει ποιος κέρδισε.</p>
+    </div>
+  </div>
+
+  <!-- Screenshots from the app (store\screenshots\el). -->
+  <div class="screens">
+    <img src="screens/home.png" width="1080" height="2160" alt="Η αρχική οθόνη του Quizanta" loading="lazy">
+    <img src="screens/puzzle.png" width="1080" height="2160" alt="Οπτικός γρίφος: τι ακολουθεί;" loading="lazy">
+    <img src="screens/puzzle-answer.png" width="1080" height="2160" alt="Πόσα τρίγωνα βλέπεις; Σωστή απάντηση" loading="lazy">
+  </div>
+
+  <section lang="el">
+    <p>Πάνω από <strong>14.000 ερωτήσεις</strong> σε 17 κατηγορίες: Ιστορία, Γεωγραφία, Μυθολογία, Επιστήμη, Αθλητισμός, Τέχνες, Ζώα, Γαστρονομία, Γλώσσα, Τεχνολογία, Μουσική, Σινεμά, Γρίφοι, και ερωτήσεις με εικόνα: 🗺️ Χάρτες, 🚩 Σημαίες και 🤔 emoji. Μαζί με τους 🧩 Οπτικούς γρίφους και το 🎯 Μάντεψε το νούμερο.</p>
+  </section>
+
+  <section lang="en">
+    <p><strong>Quizanta</strong> is a trivia quiz game for Android with over <strong>11,000 questions</strong> in English, and thousands more in Greek and in Spanish, in 17 categories, from History and Science to Maps, Flags and Emoji Riddles. <strong>New: Visual Puzzles</strong>, endless shape puzzles: what comes next, count the triangles, mirror images and memory. Play solo or Guess the Number, play the Daily quiz (the same 10 questions for everyone, every day) and keep your streak going, play live with friends on their own phones, take turns on one phone, or send a challenge link to friends anywhere.</p>
+  </section>
+
+  <section lang="es">
+    <p><strong>Quizanta</strong> es un juego de preguntas para Android con más de <strong>11.000 preguntas en español</strong> en 17 categorías, de Historia y Ciencia a Mapas, Banderas y Adivina el emoji. <strong>Nuevo: Acertijos visuales</strong>, acertijos con formas que nunca se acaban: qué sigue, cuenta los triángulos, espejos y memoria. Juega solo o a Adivina el número, haz el Quiz diario (las mismas 10 preguntas para todos, cada día) y mantén tu racha, juega en vivo con amigos, cada uno en su móvil, por turnos en un mismo móvil, o envía un enlace de reto a tus amigos.</p>
+  </section>
+</main>
+
+<footer>
+  <a href="privacy/">Πολιτική απορρήτου / Privacy policy / Política de privacidad</a> ·
+  <a href="mailto:karagiannakis.nikos@gmail.com">karagiannakis.nikos@gmail.com</a>
+</footer>
+</body>
+</html>
