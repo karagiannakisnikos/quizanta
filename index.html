@@ -4,17 +4,20 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Quizanta – Κουίζ Γνώσεων</title>
-<meta name="description" content="Quizanta: κουίζ γνώσεων για Android με πάνω από 14.000 ερωτήσεις και Οπτικούς γρίφους. Παίξε μόνος, το Ημερήσιο κουίζ, ζωντανά με φίλους ή στείλε πρόκληση.">
+<meta name="description" content="Quizanta: κουίζ γνώσεων για Android με πάνω από 14.000 ερωτήσεις και Οπτικούς γρίφους. Trivia quiz for Android with 11,000+ questions and Visual Puzzles. Juego de preguntas con más de 11.000 preguntas.">
 <style>
   :root { --bg: #ffffff; --text: #1f1f1f; --muted: #6e6e6e; --accent: #5B2EE0; --card: #f1edfd; --new: #FFC93C; --new-text: #3A1C99; }
   @media (prefers-color-scheme: dark) {
     :root { --bg: #141414; --text: #e8e8e8; --muted: #a0a0a0; --accent: #ac99ea; --card: #232028; }
   }
   body { margin: 0; background: var(--bg); color: var(--text); font: 16px/1.6 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
-  header { background: linear-gradient(135deg, #7B4DFF, #4A1FC2); color: #fff; text-align: center; padding: 48px 16px 40px; }
+  header { position: relative; background: linear-gradient(135deg, #7B4DFF, #4A1FC2); color: #fff; text-align: center; padding: 56px 16px 40px; }
   header img { width: 112px; height: 112px; border-radius: 24px; box-shadow: 0 8px 24px rgba(0,0,0,.25); }
   header h1 { margin: 16px 0 4px; font-size: 2.4rem; }
   header p { margin: 0; opacity: .9; }
+  .langs { position: absolute; top: 12px; right: 12px; display: flex; gap: 4px; }
+  .langs button { background: rgba(255,255,255,.14); color: #fff; border: 0; border-radius: 999px; padding: 4px 10px; font: 600 .85rem system-ui, sans-serif; cursor: pointer; }
+  .langs button[aria-pressed="true"] { background: #fff; color: #4A1FC2; }
   .chips { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin-top: 18px; }
   .chips span { background: rgba(255,255,255,.16); border-radius: 999px; padding: 4px 14px; font-weight: 600; font-size: .95rem; }
   .chips span.gold { background: var(--new); color: var(--new-text); }
@@ -34,15 +37,21 @@
 </head>
 <body>
 <header>
+  <!-- Language: from ?lang=, the last choice, or the browser (Greek, Spanish, else English), like the app. -->
+  <div class="langs">
+    <button type="button" data-lang="el">ΕΛ</button>
+    <button type="button" data-lang="en">EN</button>
+    <button type="button" data-lang="es">ES</button>
+  </div>
   <!-- The app icon (store\icon-512.png). -->
   <img src="icon-512.png" width="112" height="112" alt="Quizanta">
   <h1>Quizanta</h1>
-  <p>Κουίζ γνώσεων κόντρα στον χρόνο · Trivia quiz against the clock · Trivia contra el reloj</p>
+  <p data-t="tagline">Κουίζ γνώσεων κόντρα στον χρόνο</p>
   <div class="chips">
-    <span class="gold">14.000+ ερωτήσεις</span>
-    <span>🧩 Οπτικοί γρίφοι</span>
-    <span>🎯 Μάντεψε το νούμερο</span>
-    <span>🌐 Με φίλους</span>
+    <span class="gold" data-t="count">14.000+ ερωτήσεις</span>
+    <span data-t="chipPuzzles">🧩 Οπτικοί γρίφοι</span>
+    <span data-t="chipNumber">🎯 Μάντεψε το νούμερο</span>
+    <span data-t="chipFriends">🌐 Με φίλους</span>
   </div>
   <a class="store" href="https://play.google.com/store/apps/details?id=com.quizanta.app">▶ Google Play</a>
 </header>
@@ -50,54 +59,140 @@
 <main>
   <div class="modes">
     <div class="mode">
-      <h2>🧩 Οπτικοί γρίφοι <span class="badge">ΝΕΟ</span></h2>
-      <p>Σειρές σχημάτων, τρίγωνα για μέτρημα, καθρέφτες και μνήμη. Γρίφοι που δεν τελειώνουν ποτέ.</p>
+      <h2><span data-t="puzzlesTitle">🧩 Οπτικοί γρίφοι</span> <span class="badge" data-t="new">ΝΕΟ</span></h2>
+      <p data-t="puzzlesText">Σειρές σχημάτων, τρίγωνα για μέτρημα, καθρέφτες και μνήμη. Γρίφοι που δεν τελειώνουν ποτέ.</p>
     </div>
     <div class="mode">
-      <h2>🎯 Μάντεψε το νούμερο</h2>
-      <p>Σύρε τον δείκτη στη γραμμή: όσο πιο κοντά πέσεις, τόσο περισσότεροι πόντοι.</p>
+      <h2 data-t="numberTitle">🎯 Μάντεψε το νούμερο</h2>
+      <p data-t="numberText">Σύρε τον δείκτη στη γραμμή: όσο πιο κοντά πέσεις, τόσο περισσότεροι πόντοι.</p>
     </div>
     <div class="mode">
-      <h2>👤 Μόνος</h2>
-      <p>10 ερωτήσεις κόντρα στον χρόνο και παγκόσμια κατάταξη.</p>
+      <h2 data-t="soloTitle">👤 Μόνος</h2>
+      <p data-t="soloText">10 ερωτήσεις κόντρα στον χρόνο και παγκόσμια κατάταξη.</p>
     </div>
     <div class="mode">
-      <h2>🌐 Με φίλους</h2>
-      <p>Ζωντανά, ο καθένας στο κινητό του, ή με τη σειρά στο ίδιο κινητό.</p>
+      <h2 data-t="friendsTitle">🌐 Με φίλους</h2>
+      <p data-t="friendsText">Ζωντανά, ο καθένας στο κινητό του, ή με τη σειρά στο ίδιο κινητό.</p>
     </div>
     <div class="mode">
-      <h2>📅 Ημερήσιο κουίζ</h2>
-      <p>Κάθε μέρα 10 ερωτήσεις, ίδιες για όλους. Κράτα το σερί σου 🔥</p>
+      <h2 data-t="dailyTitle">📅 Ημερήσιο κουίζ</h2>
+      <p data-t="dailyText">Κάθε μέρα 10 ερωτήσεις, ίδιες για όλους. Κράτα το σερί σου 🔥</p>
     </div>
     <div class="mode">
-      <h2>🏆 Πρόκληση</h2>
-      <p>Στείλε τον σύνδεσμο σε φίλο: παίζει τις ίδιες ερωτήσεις και βλέπει ποιος κέρδισε.</p>
+      <h2 data-t="challengeTitle">🏆 Πρόκληση</h2>
+      <p data-t="challengeText">Στείλε τον σύνδεσμο σε φίλο: παίζει τις ίδιες ερωτήσεις και βλέπει ποιος κέρδισε.</p>
     </div>
   </div>
 
-  <!-- Screenshots from the app (store\screenshots\el). -->
+  <!-- Screenshots from the app, in the page's language (store\screenshots). -->
   <div class="screens">
-    <img src="screens/home.png" width="1080" height="2160" alt="Η αρχική οθόνη του Quizanta" loading="lazy">
-    <img src="screens/puzzle.png" width="1080" height="2160" alt="Οπτικός γρίφος: τι ακολουθεί;" loading="lazy">
-    <img src="screens/puzzle-answer.png" width="1080" height="2160" alt="Πόσα τρίγωνα βλέπεις; Σωστή απάντηση" loading="lazy">
+    <img data-shot="home" src="screens/el/home.png" width="1080" height="2160" alt="" loading="lazy">
+    <img data-shot="puzzle" src="screens/el/puzzle.png" width="1080" height="2160" alt="" loading="lazy">
+    <img data-shot="puzzle-answer" src="screens/el/puzzle-answer.png" width="1080" height="2160" alt="" loading="lazy">
   </div>
 
-  <section lang="el">
-    <p>Πάνω από <strong>14.000 ερωτήσεις</strong> σε 17 κατηγορίες: Ιστορία, Γεωγραφία, Μυθολογία, Επιστήμη, Αθλητισμός, Τέχνες, Ζώα, Γαστρονομία, Γλώσσα, Τεχνολογία, Μουσική, Σινεμά, Γρίφοι, και ερωτήσεις με εικόνα: 🗺️ Χάρτες, 🚩 Σημαίες και 🤔 emoji. Μαζί με τους 🧩 Οπτικούς γρίφους και το 🎯 Μάντεψε το νούμερο.</p>
-  </section>
-
-  <section lang="en">
-    <p><strong>Quizanta</strong> is a trivia quiz game for Android with over <strong>11,000 questions</strong> in English, and thousands more in Greek and in Spanish, in 17 categories, from History and Science to Maps, Flags and Emoji Riddles. <strong>New: Visual Puzzles</strong>, endless shape puzzles: what comes next, count the triangles, mirror images and memory. Play solo or Guess the Number, play the Daily quiz (the same 10 questions for everyone, every day) and keep your streak going, play live with friends on their own phones, take turns on one phone, or send a challenge link to friends anywhere.</p>
-  </section>
-
-  <section lang="es">
-    <p><strong>Quizanta</strong> es un juego de preguntas para Android con más de <strong>11.000 preguntas en español</strong> en 17 categorías, de Historia y Ciencia a Mapas, Banderas y Adivina el emoji. <strong>Nuevo: Acertijos visuales</strong>, acertijos con formas que nunca se acaban: qué sigue, cuenta los triángulos, espejos y memoria. Juega solo o a Adivina el número, haz el Quiz diario (las mismas 10 preguntas para todos, cada día) y mantén tu racha, juega en vivo con amigos, cada uno en su móvil, por turnos en un mismo móvil, o envía un enlace de reto a tus amigos.</p>
+  <section>
+    <p data-t="about">Πάνω από <strong>14.000 ερωτήσεις</strong> σε 17 κατηγορίες: Ιστορία, Γεωγραφία, Μυθολογία, Επιστήμη, Αθλητισμός, Τέχνες, Ζώα, Γαστρονομία, Γλώσσα, Τεχνολογία, Μουσική, Σινεμά, Γρίφοι, και ερωτήσεις με εικόνα: 🗺️ Χάρτες, 🚩 Σημαίες και 🤔 emoji. Μαζί με τους 🧩 Οπτικούς γρίφους και το 🎯 Μάντεψε το νούμερο. Στα ελληνικά, στα αγγλικά και στα ισπανικά, με διαφορετικές ερωτήσεις σε κάθε γλώσσα.</p>
   </section>
 </main>
 
 <footer>
-  <a href="privacy/">Πολιτική απορρήτου / Privacy policy / Política de privacidad</a> ·
+  <a href="privacy/" data-t="privacy">Πολιτική απορρήτου</a> ·
   <a href="mailto:karagiannakis.nikos@gmail.com">karagiannakis.nikos@gmail.com</a>
 </footer>
+
+<script>
+  // The Greek texts are in the page itself; these replace them for English and Spanish.
+  var texts = {
+    el: {
+      title: 'Quizanta – Κουίζ Γνώσεων',
+      shots: ['Η αρχική οθόνη του Quizanta', 'Οπτικός γρίφος: τι ακολουθεί;', 'Πόσα τρίγωνα βλέπεις; Σωστή απάντηση']
+    },
+    en: {
+      title: 'Quizanta – Trivia Quiz',
+      tagline: 'Trivia quiz against the clock',
+      count: '11,000+ questions',
+      chipPuzzles: '🧩 Visual Puzzles',
+      chipNumber: '🎯 Guess the Number',
+      chipFriends: '🌐 With friends',
+      puzzlesTitle: '🧩 Visual Puzzles',
+      new: 'NEW',
+      puzzlesText: 'Shape sequences, triangles to count, mirror images and memory. Puzzles that never run out.',
+      numberTitle: '🎯 Guess the Number',
+      numberText: 'Drag the marker along the line: the closer you get, the more points you score.',
+      soloTitle: '👤 Solo',
+      soloText: '10 questions against the clock and a worldwide leaderboard.',
+      friendsTitle: '🌐 With friends',
+      friendsText: 'Live, each on their own phone, or taking turns on one phone.',
+      dailyTitle: '📅 Daily quiz',
+      dailyText: 'Every day 10 questions, the same for everyone. Keep your streak going 🔥',
+      challengeTitle: '🏆 Challenge',
+      challengeText: 'Send the link to a friend: they play the same questions and see who won.',
+      about: 'Over <strong>11,000 questions</strong> in 17 categories: History, Geography, Mythology, Science, Sports, Arts, Animals, Food, Words, Technology, Music, Film, Puzzles, and picture questions: 🗺️ Maps, 🚩 Flags and 🤔 emoji. Plus 🧩 Visual Puzzles and 🎯 Guess the Number. In English, Greek and Spanish, each with its own questions.',
+      privacy: 'Privacy policy',
+      shots: ['The Quizanta home screen', 'Visual puzzle: what comes next?', 'How many triangles can you see? Right answer']
+    },
+    es: {
+      title: 'Quizanta – Trivia y Preguntas',
+      tagline: 'Trivia contra el reloj',
+      count: '11.000+ preguntas',
+      chipPuzzles: '🧩 Acertijos visuales',
+      chipNumber: '🎯 Adivina el número',
+      chipFriends: '🌐 Con amigos',
+      puzzlesTitle: '🧩 Acertijos visuales',
+      new: 'NUEVO',
+      puzzlesText: 'Series de formas, triángulos para contar, espejos y memoria. Acertijos que nunca se acaban.',
+      numberTitle: '🎯 Adivina el número',
+      numberText: 'Arrastra el marcador por la línea: cuanto más te acerques, más puntos ganas.',
+      soloTitle: '👤 Solo',
+      soloText: '10 preguntas contra el reloj y una clasificación mundial.',
+      friendsTitle: '🌐 Con amigos',
+      friendsText: 'En vivo, cada uno en su móvil, o por turnos en un mismo móvil.',
+      dailyTitle: '📅 Quiz diario',
+      dailyText: 'Cada día 10 preguntas, las mismas para todos. Mantén tu racha 🔥',
+      challengeTitle: '🏆 Reto',
+      challengeText: 'Envía el enlace a un amigo: juega las mismas preguntas y ve quién ganó.',
+      about: 'Más de <strong>11.000 preguntas</strong> en 17 categorías: Historia, Geografía, Mitología, Ciencia, Deportes, Arte, Animales, Comida, Palabras, Tecnología, Música, Cine, Acertijos, y preguntas con imagen: 🗺️ Mapas, 🚩 Banderas y 🤔 emoji. Además, 🧩 Acertijos visuales y 🎯 Adivina el número. En español, inglés y griego, cada idioma con sus propias preguntas.',
+      privacy: 'Política de privacidad',
+      shots: ['La pantalla de inicio de Quizanta', 'Acertijo visual: ¿qué viene después?', 'Acertijo visual: la casilla marcada, respuesta correcta']
+    }
+  };
+
+  // The Greek originals, kept so switching back to Greek restores them.
+  document.querySelectorAll('[data-t]').forEach(function (el) { texts.el[el.dataset.t] = el.innerHTML; });
+
+  function setLanguage(lang) {
+    var t = texts[lang];
+    document.documentElement.lang = lang;
+    document.title = t.title;
+    document.querySelectorAll('[data-t]').forEach(function (el) { el.innerHTML = t[el.dataset.t]; });
+    document.querySelectorAll('[data-shot]').forEach(function (img, i) {
+      img.src = 'screens/' + lang + '/' + img.dataset.shot + '.png';
+      img.alt = t.shots[i];
+    });
+    document.querySelectorAll('.langs button').forEach(function (b) {
+      b.setAttribute('aria-pressed', b.dataset.lang === lang ? 'true' : 'false');
+    });
+  }
+
+  function initialLanguage() {
+    var asked = (new URLSearchParams(location.search).get('lang') || '').toLowerCase();
+    if (texts[asked]) return asked;
+    try {
+      var saved = localStorage.getItem('lang');
+      if (texts[saved]) return saved;
+    } catch (e) {}
+    var browser = (navigator.language || '').toLowerCase();
+    return /^el/.test(browser) ? 'el' : /^es/.test(browser) ? 'es' : 'en';
+  }
+
+  document.querySelectorAll('.langs button').forEach(function (b) {
+    b.addEventListener('click', function () {
+      setLanguage(b.dataset.lang);
+      try { localStorage.setItem('lang', b.dataset.lang); } catch (e) {}
+    });
+  });
+  setLanguage(initialLanguage());
+</script>
 </body>
 </html>
