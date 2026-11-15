@@ -8,8 +8,16 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex">
 <title>Quizanta – Παίξε μαζί μου</title>
-<meta property="og:title" content="🎯 Σε προκαλώ στο Quizanta!">
-<meta property="og:description" content="Πάτα για να παίξεις τις ίδιες ερωτήσεις με τον φίλο σου.">
+<!-- Link preview in chat apps (Open Graph). Crawlers don't run the script, so it's in all three languages. -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Quizanta">
+<meta property="og:title" content="🎯 Quizanta: Παίξε μαζί μου! · Play with me! · ¡Juega conmigo!">
+<meta property="og:description" content="Πάτα για να παίξεις. Tap to play. Toca para jugar.">
+<meta property="og:image" content="https://karagiannakisnikos.github.io/quizanta/share.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Quizanta">
+<meta name="twitter:card" content="summary_large_image">
 <style>
   :root { --bg: #ffffff; --text: #1f1f1f; --muted: #6e6e6e; --accent: #5B2EE0; --card: #f1edfd; }
   @media (prefers-color-scheme: dark) {
@@ -56,9 +64,20 @@
 
   document.getElementById('code').textContent = code || '–';
 
-  // In English for browsers in any other language than Greek, like the app (AppLanguage).
-  var english = !/^el/i.test(navigator.language || '');
+  // Greek, Spanish, or English for browsers in any other language, like the app (AppLanguage).
+  var spanish = /^es/i.test(navigator.language || '');
+  var english = !/^el/i.test(navigator.language || '') && !spanish;
   var friend = code.indexOf('QF') === 0;
+  if (spanish) {
+    document.documentElement.lang = 'es';
+    document.title = 'Quizanta – Juega conmigo';
+    document.getElementById('heading').textContent = '¡Juega en Quizanta!';
+    document.getElementById('intro').textContent = 'Tu amigo te espera con este código:';
+    document.getElementById('open').textContent = '▶ Abrir Quizanta';
+    document.querySelector('#android .muted').textContent = '¿No tienes la app? Te llevamos a Google Play; cuando la instales y la abras, el código ya estará puesto.';
+    document.querySelector('#other .muted').textContent = 'Quizanta es para móviles Android. Abre este enlace en tu móvil.';
+    document.getElementById('copy').textContent = '📋 Copiar código';
+  }
   if (english) {
     document.documentElement.lang = 'en';
     document.title = 'Quizanta – Play with me';
@@ -72,10 +91,12 @@
 
   // Friend codes (QF-…) add a friend instead of starting a game; the app tells them apart by the prefix.
   if (friend) {
-    document.title = english ? 'Quizanta – Be my friend' : 'Quizanta – Γίνε φίλος μου';
+    document.title = spanish ? 'Quizanta – Sé mi amigo' : english ? 'Quizanta – Be my friend' : 'Quizanta – Γίνε φίλος μου';
     document.getElementById('emoji').textContent = '👥';
-    document.getElementById('heading').textContent = english ? 'Be my friend on Quizanta!' : 'Γίνε φίλος μου στο Quizanta!';
-    document.getElementById('intro').textContent = english
+    document.getElementById('heading').textContent = spanish ? '¡Sé mi amigo en Quizanta!' : english ? 'Be my friend on Quizanta!' : 'Γίνε φίλος μου στο Quizanta!';
+    document.getElementById('intro').textContent = spanish
+      ? 'Toca el botón y seremos amigos: desde entonces podremos invitarnos a jugar con una notificación en el móvil.'
+      : english
       ? "Tap the button and we're friends: from then on we can invite each other to play with a notification on the phone."
       : 'Πάτα το κουμπί και γινόμαστε φίλοι: από εκεί και πέρα θα καλούμε ο ένας τον άλλον σε παιχνίδι με μια ειδοποίηση στο κινητό.';
     // No code to show: the link does everything.
@@ -86,7 +107,7 @@
   var copy = document.getElementById('copy');
   copy.hidden = !code || friend;
   copy.onclick = function () {
-    navigator.clipboard.writeText(code).then(function () { copy.textContent = english ? '✅ Copied' : '✅ Αντιγράφηκε'; });
+    navigator.clipboard.writeText(code).then(function () { copy.textContent = spanish ? '✅ Copiado' : english ? '✅ Copied' : '✅ Αντιγράφηκε'; });
   };
 
   if (/Android/i.test(navigator.userAgent)) {
