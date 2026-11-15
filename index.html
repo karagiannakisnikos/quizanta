@@ -28,6 +28,8 @@
   .mode h2 { margin: 0 0 6px; font-size: 1.15rem; }
   .mode p { margin: 0; color: var(--muted); }
   .badge { display: inline-block; background: var(--new); color: var(--new-text); font-size: .75rem; font-weight: 700; border-radius: 999px; padding: 1px 8px; margin-left: 6px; vertical-align: middle; }
+  .video { position: relative; aspect-ratio: 16 / 9; margin-bottom: 32px; border-radius: 16px; overflow: hidden; background: #000; box-shadow: 0 4px 16px rgba(0,0,0,.15); }
+  .video iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
   .screens { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 32px; }
   .screens img { width: 100%; height: auto; border-radius: 16px; box-shadow: 0 4px 16px rgba(0,0,0,.15); }
   section { margin-top: 32px; }
@@ -59,6 +61,12 @@
 </header>
 
 <main>
+  <!-- The promo video on YouTube, in the page's language (store\video\youtube.md). -->
+  <div class="video">
+    <iframe id="video" src="https://www.youtube-nocookie.com/embed/dFs9nNcZn0w?rel=0" title="Quizanta"
+      allow="encrypted-media; picture-in-picture; fullscreen" allowfullscreen loading="lazy"></iframe>
+  </div>
+
   <div class="modes">
     <div class="mode">
       <h2><span data-t="journeyTitle">🧭 Το Ταξίδι</span> <span class="badge" data-t="new">ΝΕΟ</span></h2>
@@ -120,10 +128,12 @@
   var texts = {
     el: {
       title: 'Quizanta – Κουίζ Γνώσεων',
+      video: 'dFs9nNcZn0w',
       shots: ['Η αρχική οθόνη του Quizanta', 'Οπτικός γρίφος: τι ακολουθεί;', 'Πόσα τρίγωνα βλέπεις; Σωστή απάντηση']
     },
     en: {
       title: 'Quizanta – Trivia Quiz',
+      video: 'grYIedqFaik',
       tagline: 'Trivia quiz against the clock',
       count: '11,000+ questions',
       chipJourney: '🧭 The Journey',
@@ -136,7 +146,7 @@
       survivalTitle: '⚡ Survival',
       survivalText: 'Questions until your first mistake, harder and harder. How many in a row? With its own leaderboard.',
       weeklyTitle: '🏅 Theme weeks',
-      weeklyText: 'A new theme every Monday. Get 7 out of 10 to earn the week's badge.',
+      weeklyText: 'A new theme every Monday. Get 7 out of 10 to earn the week’s badge.',
       puzzlesTitle: '🧩 Visual Puzzles',
       new: 'NEW',
       puzzlesText: 'Shape sequences, triangles to count, mirror images and memory. Puzzles that never run out.',
@@ -156,6 +166,7 @@
     },
     es: {
       title: 'Quizanta – Trivia y Preguntas',
+      video: 'Wyhat06kF-0',
       tagline: 'Trivia contra el reloj',
       count: '11.000+ preguntas',
       chipJourney: '🧭 El Viaje',
@@ -195,6 +206,9 @@
     var t = texts[lang];
     document.documentElement.lang = lang;
     document.title = t.title;
+    var video = document.getElementById('video');
+    var src = 'https://www.youtube-nocookie.com/embed/' + t.video + '?rel=0&hl=' + lang;
+    if (video.src !== src) video.src = src;
     document.querySelectorAll('[data-t]').forEach(function (el) { el.innerHTML = t[el.dataset.t]; });
     document.querySelectorAll('[data-shot]').forEach(function (img, i) {
       img.src = 'screens/' + lang + '/' + img.dataset.shot + '.png';
