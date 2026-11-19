@@ -65,9 +65,21 @@
   document.getElementById('code').textContent = code || '–';
 
   // Greek, Spanish, or English for browsers in any other language, like the app (AppLanguage).
-  var spanish = /^es/i.test(navigator.language || '');
-  var english = !/^el/i.test(navigator.language || '') && !spanish;
+  // Portuguese (browser in Portuguese, or a Portuguese game code QP-…) gets its own texts below.
+  var portuguese = /^pt/i.test(navigator.language || '') || code.indexOf('QP') === 0;
+  var spanish = !portuguese && /^es/i.test(navigator.language || '');
+  var english = !/^el/i.test(navigator.language || '') && !spanish && !portuguese;
   var friend = code.indexOf('QF') === 0;
+  if (portuguese) {
+    document.documentElement.lang = 'pt';
+    document.title = 'Quizanta – Jogue comigo';
+    document.getElementById('heading').textContent = 'Jogue no Quizanta!';
+    document.getElementById('intro').textContent = 'Seu amigo está esperando você com este código:';
+    document.getElementById('open').textContent = '▶ Abrir o Quizanta';
+    document.querySelector('#android .muted').textContent = 'Não tem o app? Levamos você ao Google Play; quando você instalar e abrir, o código já estará preenchido.';
+    document.querySelector('#other .muted').textContent = 'O Quizanta é para celulares Android. Abra este link no seu celular.';
+    document.getElementById('copy').textContent = '📋 Copiar código';
+  }
   if (spanish) {
     document.documentElement.lang = 'es';
     document.title = 'Quizanta – Juega conmigo';
@@ -91,10 +103,12 @@
 
   // Friend codes (QF-…) add a friend instead of starting a game; the app tells them apart by the prefix.
   if (friend) {
-    document.title = spanish ? 'Quizanta – Sé mi amigo' : english ? 'Quizanta – Be my friend' : 'Quizanta – Γίνε φίλος μου';
+    document.title = portuguese ? 'Quizanta – Seja meu amigo' : spanish ? 'Quizanta – Sé mi amigo' : english ? 'Quizanta – Be my friend' : 'Quizanta – Γίνε φίλος μου';
     document.getElementById('emoji').textContent = '👥';
-    document.getElementById('heading').textContent = spanish ? '¡Sé mi amigo en Quizanta!' : english ? 'Be my friend on Quizanta!' : 'Γίνε φίλος μου στο Quizanta!';
-    document.getElementById('intro').textContent = spanish
+    document.getElementById('heading').textContent = portuguese ? 'Seja meu amigo no Quizanta!' : spanish ? '¡Sé mi amigo en Quizanta!' : english ? 'Be my friend on Quizanta!' : 'Γίνε φίλος μου στο Quizanta!';
+    document.getElementById('intro').textContent = portuguese
+      ? 'Toque no botão e seremos amigos: a partir daí poderemos nos convidar para jogar com uma notificação no celular.'
+      : spanish
       ? 'Toca el botón y seremos amigos: desde entonces podremos invitarnos a jugar con una notificación en el móvil.'
       : english
       ? "Tap the button and we're friends: from then on we can invite each other to play with a notification on the phone."
@@ -107,7 +121,7 @@
   var copy = document.getElementById('copy');
   copy.hidden = !code || friend;
   copy.onclick = function () {
-    navigator.clipboard.writeText(code).then(function () { copy.textContent = spanish ? '✅ Copiado' : english ? '✅ Copied' : '✅ Αντιγράφηκε'; });
+    navigator.clipboard.writeText(code).then(function () { copy.textContent = portuguese ? '✅ Copiado' : spanish ? '✅ Copiado' : english ? '✅ Copied' : '✅ Αντιγράφηκε'; });
   };
 
   if (/Android/i.test(navigator.userAgent)) {
