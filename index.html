@@ -126,7 +126,7 @@
   </div>
 
   <section>
-    <p data-t="about">Πάνω από <strong>14.000 ερωτήσεις</strong> σε 17 κατηγορίες: Ιστορία, Γεωγραφία, Μυθολογία, Επιστήμη, Αθλητισμός, Τέχνες, Ζώα, Γαστρονομία, Γλώσσα, Τεχνολογία, Μουσική, Σινεμά, Γρίφοι, και ερωτήσεις με εικόνα: 🗺️ Χάρτες, 🚩 Σημαίες και 🤔 emoji. Μαζί με το 🧭 Ταξίδι, την ⚡ Επιβίωση, τις 🏅 Θεματικές εβδομάδες, τους 🧩 Οπτικούς γρίφους και το 🎯 Μάντεψε το νούμερο. Στα ελληνικά, στα αγγλικά και στα ισπανικά, με διαφορετικές ερωτήσεις σε κάθε γλώσσα.</p>
+    <p data-t="about">Πάνω από <strong>14.000 ερωτήσεις</strong> σε 17 κατηγορίες: Ιστορία, Γεωγραφία, Μυθολογία, Επιστήμη, Αθλητισμός, Τέχνες, Ζώα, Γαστρονομία, Γλώσσα, Τεχνολογία, Μουσική, Σινεμά, Γρίφοι, και ερωτήσεις με εικόνα: 🗺️ Χάρτες, 🚩 Σημαίες και 🤔 emoji. Μαζί με το 🧭 Ταξίδι, την ⚡ Επιβίωση, τις 🏅 Θεματικές εβδομάδες, τους 🧩 Οπτικούς γρίφους και το 🎯 Μάντεψε το νούμερο. Στα ελληνικά, στα αγγλικά, στα ισπανικά και στα πορτογαλικά, με διαφορετικές ερωτήσεις σε κάθε γλώσσα.</p>
   </section>
 </main>
 
@@ -172,7 +172,7 @@
       dailyText: 'Every day 10 questions, the same for everyone. Keep your streak going 🔥',
       challengeTitle: '🏆 Challenge',
       challengeText: 'Send the link to a friend: they play the same questions and see who won.',
-      about: 'Over <strong>11,000 questions</strong> in 17 categories: History, Geography, Mythology, Science, Sports, Arts, Animals, Food, Words, Technology, Music, Film, Puzzles, and picture questions: 🗺️ Maps, 🚩 Flags and 🤔 emoji. Plus 🧭 The Journey, ⚡ Survival, 🏅 Theme weeks, 🧩 Visual Puzzles and 🎯 Guess the Number. In English, Greek and Spanish, each with its own questions.',
+      about: 'Over <strong>11,000 questions</strong> in 17 categories: History, Geography, Mythology, Science, Sports, Arts, Animals, Food, Words, Technology, Music, Film, Puzzles, and picture questions: 🗺️ Maps, 🚩 Flags and 🤔 emoji. Plus 🧭 The Journey, ⚡ Survival, 🏅 Theme weeks, 🧩 Visual Puzzles and 🎯 Guess the Number. In English, Greek, Spanish and Portuguese, each with its own questions.',
       privacy: 'Privacy policy',
       shots: ['The Quizanta home screen', 'Visual puzzle: what comes next?', 'How many triangles can you see? Right answer']
     },
@@ -205,7 +205,7 @@
       dailyText: 'Cada día 10 preguntas, las mismas para todos. Mantén tu racha 🔥',
       challengeTitle: '🏆 Reto',
       challengeText: 'Envía el enlace a un amigo: juega las mismas preguntas y ve quién ganó.',
-      about: 'Más de <strong>11.000 preguntas</strong> en 17 categorías: Historia, Geografía, Mitología, Ciencia, Deportes, Arte, Animales, Comida, Palabras, Tecnología, Música, Cine, Acertijos, y preguntas con imagen: 🗺️ Mapas, 🚩 Banderas y 🤔 emoji. Además, 🧭 El Viaje, ⚡ Supervivencia, 🏅 Semanas temáticas, 🧩 Acertijos visuales y 🎯 Adivina el número. En español, inglés y griego, cada idioma con sus propias preguntas.',
+      about: 'Más de <strong>11.000 preguntas</strong> en 17 categorías: Historia, Geografía, Mitología, Ciencia, Deportes, Arte, Animales, Comida, Palabras, Tecnología, Música, Cine, Acertijos, y preguntas con imagen: 🗺️ Mapas, 🚩 Banderas y 🤔 emoji. Además, 🧭 El Viaje, ⚡ Supervivencia, 🏅 Semanas temáticas, 🧩 Acertijos visuales y 🎯 Adivina el número. En español, inglés, griego y portugués, cada idioma con sus propias preguntas.',
       privacy: 'Política de privacidad',
       shots: ['La pantalla de inicio de Quizanta', 'Acertijo visual: ¿qué viene después?', 'Acertijo visual: la casilla marcada, respuesta correcta']
     },
@@ -244,9 +244,8 @@
     }
   };
 
-  // Portuguese is still hidden in the app's release builds (AppLanguage.Hidden): until it ships, the PT button stays
-  // hidden and browsers in Portuguese get English; ?lang=pt shows it for a preview. Set to true when Portuguese ships.
-  var ptLive = false;
+  // Portuguese: the PT button and Portuguese browsers getting Portuguese (false hides it, ?lang=pt still shows it).
+  var ptLive = true;
   if (ptLive) document.querySelector('.langs [data-lang="pt"]').hidden = false;
 
   // The Greek originals, kept so switching back to Greek restores them.
